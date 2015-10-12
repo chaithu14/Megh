@@ -31,21 +31,23 @@ import java.util.concurrent.Executors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.hadoop.io.WritableComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.datatorrent.api.Context.OperatorContext;
-import com.datatorrent.api.Operator;
-import com.datatorrent.common.util.NameableThreadFactory;
-import com.datatorrent.contrib.hdht.tfile.TFileImpl;
-import com.datatorrent.netlet.util.Slice;
-import com.datatorrent.contrib.hdht.HDHTFileAccess.HDSFileReader;
+import org.apache.commons.io.IOUtils;
+import org.apache.hadoop.io.WritableComparator;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
+
+import com.datatorrent.api.Context.OperatorContext;
+import com.datatorrent.api.Operator;
+import com.datatorrent.common.util.NameableThreadFactory;
+import com.datatorrent.contrib.hdht.HDHTFileAccess.HDSFileReader;
+import com.datatorrent.contrib.hdht.tfile.TFileImpl;
+import com.datatorrent.netlet.util.Slice;
 
 /**
  * Reader for key value based data store.
@@ -376,7 +378,7 @@ public class HDHTReader implements Operator, HDHT.Reader
     HDHTWalManager.WalPosition recoveryStartWalPosition;
   }
 
-  private static class BucketReader implements Closeable
+  protected static class BucketReader implements Closeable
   {
     BucketMeta bucketMeta;
     final ConcurrentMap<String, HDSFileReader> readers = Maps.newConcurrentMap();
