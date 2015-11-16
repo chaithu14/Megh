@@ -20,6 +20,7 @@
 
   <modules>
     <module>HdfsInputModule</module>
+    <module>KafkaInputModule</module>
   </modules>
 
 </project>
