@@ -19,7 +19,7 @@
   </properties>
 
   <modules>
-    <module>HdfsInputModule</module>
+    <module>hdfs-input</module>
   </modules>
 
 </project>
