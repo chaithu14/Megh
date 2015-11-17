@@ -37,6 +37,7 @@ public class HDFSFileSplitter extends BandwidthLimitingFileSplitter
   @Override
   protected long getDefaultBlockSize()
   {
+    //Really, block size of local HDFS? Input module is not going to write right away, may be we need remote block size only.
     return appFS.getDefaultBlockSize(new Path(context.getValue(DAGContext.APPLICATION_PATH)));
   }
 

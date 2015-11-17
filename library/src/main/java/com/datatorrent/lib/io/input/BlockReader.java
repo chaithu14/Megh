@@ -28,12 +28,10 @@ import com.datatorrent.netlet.util.Slice;
 /**
  * <p>BlockReader class.</p>
  *
- * @since 1.0.0
+ * @since 3.2.0
  */
 public class BlockReader extends FSSliceReader
 {
-  protected String uri;
-
   protected int maxRetries;
   protected Queue<FailedBlock> failedQueue;
 
@@ -145,46 +143,6 @@ public class BlockReader extends FSSliceReader
     {
       return block.getBlockId();
     }
-  }
-
-  /**
-   * Converts Scheme part of the URI to lower case. Multiple URI can be comma
-   * separated. If no scheme is there, no change is made.
-   * 
-   * @param
-   * @return String with scheme part as lower case
-   */
-  private static String convertSchemeToLowerCase(String uri)
-  {
-    if (uri == null)
-      return null;
-    StringBuilder inputMod = new StringBuilder();
-    for (String f : Splitter.on(",").omitEmptyStrings().split(uri)) {
-      String scheme = URI.create(f).getScheme();
-      if (scheme != null) {
-        inputMod.append(f.replaceFirst(scheme, scheme.toLowerCase()));
-      } else {
-        inputMod.append(f);
-      }
-      inputMod.append(",");
-    }
-    inputMod.setLength(inputMod.length() - 1);
-    return inputMod.toString();
-  }
-
-  /**
-   * Sets the uri
-   *
-   * @param uri
-   */
-  public void setUri(String uri)
-  {
-    this.uri = convertSchemeToLowerCase(uri);
-  }
-
-  public String getUri()
-  {
-    return uri;
   }
 
   /**

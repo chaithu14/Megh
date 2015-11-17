@@ -6,24 +6,27 @@ import java.util.regex.Pattern;
 import org.apache.hadoop.fs.Path;
 
 import com.datatorrent.api.Context.OperatorContext;
+import com.datatorrent.lib.bandwidth.BandwidthManager;
 import com.datatorrent.lib.io.block.BlockMetadata.FileBlockMetadata;
 import com.datatorrent.lib.io.fs.FileSplitterInput;
 
 public class BandwidthLimitingFileSplitter extends FileSplitterInput
 {
+  private BandwidthManager bandwidthManager;
   private FileBlockMetadata currentBlockMetadata;
 
   public BandwidthLimitingFileSplitter()
   {
     super();
     super.setScanner(new Scanner());
+    bandwidthManager = new BandwidthManager();
   }
 
   @Override
   public void setup(OperatorContext context)
   {
     super.setup(context);
-    //TODO: setup bandwidth manager
+    bandwidthManager.setup(context);
     //TODO: One time copy counters...
   }
 
@@ -46,6 +49,16 @@ public class BandwidthLimitingFileSplitter extends FileSplitterInput
   {
     // TODO Auto-generated method stub
     return super.emitBlockMetadata();
+  }
+
+  public BandwidthManager getBandwidthManager()
+  {
+    return bandwidthManager;
+  }
+
+  public void setBandwidthManager(BandwidthManager bandwidthManager)
+  {
+    this.bandwidthManager = bandwidthManager;
   }
 
   public static class Scanner extends TimeBasedDirectoryScanner
