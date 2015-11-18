@@ -19,9 +19,8 @@
   </properties>
 
   <modules>
-    <module>HdfsInputModule</module>
     <module>KafkaInputModule</module>
-    <module>HDFS-output-module</module>
+    <module>hdfs-output-module</module>
   </modules>
 
 </project>

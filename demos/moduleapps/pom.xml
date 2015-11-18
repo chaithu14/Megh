@@ -231,7 +231,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>KafkaInputModule</artifactId>
+      <artifactId>hdfs-output-module</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <exclusion>
@@ -242,7 +242,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>HDFS-output-module</artifactId>
+      <artifactId>KafkaInputModule</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <exclusion>
