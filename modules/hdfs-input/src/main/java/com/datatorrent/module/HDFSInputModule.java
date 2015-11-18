@@ -22,7 +22,7 @@ import com.datatorrent.netlet.util.Slice;
 import com.datatorrent.operator.HDFSBlockReader;
 import com.datatorrent.operator.HDFSFileSplitter;
 
-public class Module implements com.datatorrent.api.Module
+public class HDFSInputModule implements com.datatorrent.api.Module
 {
   @NotNull
   @Size(min = 1)
@@ -38,7 +38,7 @@ public class Module implements com.datatorrent.api.Module
   public final transient ProxyOutputPort<FileBlockMetadata> blocksMetadataOutput = new ProxyOutputPort();
   public final transient ProxyOutputPort<ReaderRecord<Slice>> messages = new ProxyOutputPort();
 
-  @Override
+//  @Override
   public void populateDAG(DAG dag, Configuration conf)
   {
     HDFSFileSplitter fileSplitter = dag.addOperator("FileSplitter", new HDFSFileSplitter());
