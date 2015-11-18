@@ -14,7 +14,7 @@ public class HDFSFileOutputOperator<T> extends AbstractFileOutputOperator<T>
   protected String getFileName(Object tuple)
   {
     LOG.debug("In getFileName:{}", filePath);
-    return filePath;
+    return fileName;
   }
 
   @Override
