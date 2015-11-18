@@ -185,6 +185,7 @@
     <module>starter-app</module>
     <module>dimensions</module>
     <module>machinedata</module>
+    <module>moduleapps</module>
   </modules>
 
 </project>
