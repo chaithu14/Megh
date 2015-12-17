@@ -5,6 +5,7 @@
 
 package com.datatorrent.modules.app;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 import com.sun.org.apache.bcel.internal.util.Objects;
@@ -17,6 +18,7 @@ import com.datatorrent.lib.testbench.RandomEventGenerator;
 class RandomGenerator extends RandomEventGenerator
 {
   public final transient DefaultOutputPort<Integer> output = new DefaultOutputPort<Integer>();
+  public final transient DefaultOutputPort<byte[]> byteoutput = new DefaultOutputPort<byte[]>();
   private final Random random = new Random();
   private long noOfWindows = 0;
   private long noOfWindowsToEscape = 0;
@@ -65,6 +67,9 @@ class RandomGenerator extends RandomEventGenerator
       }
       if (output.isConnected()) {
         output.emit(rval);
+      }
+      if(byteoutput.isConnected()) {
+        byteoutput.emit(BigInteger.valueOf(rval).toByteArray());
       }
       count++;
     }
