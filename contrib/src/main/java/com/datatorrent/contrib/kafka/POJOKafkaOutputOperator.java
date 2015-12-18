@@ -95,6 +95,8 @@ public class POJOKafkaOutputOperator extends AbstractKafkaOutputOperator<Object,
       prop.put(StringUtils.trim(keyVal[0]), StringUtils.trim(keyVal[1]));
     }
     getConfigProperties().setProperty("metadata.broker.list", brokerList);
+    getConfigProperties().setProperty("batch.num.messages", String.valueOf(batchSize));
+
     getConfigProperties().putAll(prop);
     producerConfig = new ProducerConfig(getConfigProperties());
     return producerConfig;
