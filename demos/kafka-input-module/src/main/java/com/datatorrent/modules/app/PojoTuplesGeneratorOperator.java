@@ -9,6 +9,7 @@ public class PojoTuplesGeneratorOperator extends POJOTupleGenerateOperator<TestP
 {
   private int tupleSize = 0;
   private int batchNum = 5;
+  private int threshold = 5;
   public PojoTuplesGeneratorOperator()
   {
     super(TestPojo.class);
@@ -30,6 +31,16 @@ public class PojoTuplesGeneratorOperator extends POJOTupleGenerateOperator<TestP
     this.tupleSize = tupleSize;
   }
 
+  public int getThreshold()
+  {
+    return threshold;
+  }
+
+  public void setThreshold(int threshold)
+  {
+    this.threshold = threshold;
+  }
+
   public void endWindow() {
     emitedTuples.set(0);
   }
@@ -45,20 +56,20 @@ public class PojoTuplesGeneratorOperator extends POJOTupleGenerateOperator<TestP
       if( count >= theTupleNum )
         return;
 
-      if( emitedTuples.compareAndSet(count, count+1) )
-      {
+      for(int j = 0; j < threshold; j++) {
         TestPojo tuple = getNextTuple();
-        outputPort.emit ( tuple );
-        //System.out.println("Pojo : " + i + " -> " + tuple.toString());
-        tupleEmitted( tuple );
-
-        if( count+1 == theTupleNum )
+        if( emitedTuples.compareAndSet(count, count+1) )
         {
-          tupleEmitDone();
-          return;
+          outputPort.emit ( tuple );
+          //System.out.println("Pojo : " + i + " -> " + tuple.toString());
+          tupleEmitted( tuple );
+          if( count+1 == theTupleNum )
+          {
+            tupleEmitDone();
+            return;
+          }
         }
       }
-
     }
   }
 
