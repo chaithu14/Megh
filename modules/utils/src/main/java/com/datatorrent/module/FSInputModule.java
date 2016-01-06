@@ -8,6 +8,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.commons.lang.mutable.MutableLong;
 import org.apache.hadoop.conf.Configuration;
 
@@ -50,6 +53,7 @@ import com.datatorrent.netlet.util.Slice;
  */
 public abstract class FSInputModule implements Module
 {
+  private static final Logger LOG = LoggerFactory.getLogger(FSInputModule.class);
   @NotNull
   @Size(min = 1)
   private String files;
@@ -90,9 +94,11 @@ public abstract class FSInputModule implements Module
     filesMetadataOutput.set(fileSplitter.filesMetadataOutput);
     blocksMetadataOutput.set(blockReader.blocksMetadataOutput);
     messages.set(blockReader.messages);
-
+    LOG.info("------Block Size: {}", blockSize);
+    //fileSplitter.setBlockSize(blockSize);
     // Set the module properties to operators
     if (blockSize != 0) {
+      LOG.info("Block Size: {}", blockSize);
       fileSplitter.setBlockSize(blockSize);
     }
     fileSplitter.setSequencialFileRead(sequencialFileRead);

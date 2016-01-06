@@ -140,18 +140,22 @@ public class ModuleFileSplitter extends FileSplitterInput implements BandwidthLi
   @Override
   protected boolean emitBlockMetadata()
   {
+    LOG.info("EmitBlockMetadata - 1: ");
     boolean emitNext = true;
     while (emitNext) {
       if (currentBlockMetadata == null) {
         if (blockMetadataIterator.hasNext()) {
+          LOG.info("EmitBlockMetadata - 2: ");
           currentBlockMetadata = blockMetadataIterator.next();
         } else {
+          LOG.info("EmitBlockMetadata - 3: ");
           blockMetadataIterator = null;
           LOG.info("Done processing file.");
           break;
         }
       }
       emitNext = emitCurrentBlockMetadata();
+      LOG.info("EmitBlockMetadata - 4: " + emitNext);
     }
     return emitNext;
   }

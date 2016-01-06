@@ -156,6 +156,7 @@ public abstract class AbstractFileSplitter extends BaseOperator
   {
     BlockMetadata.FileBlockMetadata fileBlockMetadata = createBlockMetadata(fileMetadata);
     fileBlockMetadata.setBlockId(fileMetadata.getBlockIds()[blockNumber - 1]);
+    LOG.info("FileBlockMetadata- buildBlockMetadata: {}", fileMetadata.getBlockIds().length);
     fileBlockMetadata.setOffset(pos);
     fileBlockMetadata.setLength(lengthOfFileInBlock);
     fileBlockMetadata.setLastBlock(isLast);
@@ -287,11 +288,13 @@ public abstract class AbstractFileSplitter extends BaseOperator
       this.blockSize = blockSize;
       this.pos = fileMetadata.getDataOffset();
       this.blockNumber = 0;
+      LOG.info("BLock MetadaItr: {} , {}", blockSize, this.pos);
     }
 
     @Override
     public boolean hasNext()
     {
+      LOG.info("BLock MetadaItr - hasNext : {} , {}",this.pos, fileMetadata.getFileLength());
       return pos < fileMetadata.getFileLength();
     }
 
@@ -307,6 +310,7 @@ public abstract class AbstractFileSplitter extends BaseOperator
       BlockMetadata.FileBlockMetadata fileBlock = splitter
           .buildBlockMetadata(pos, lengthOfFileInBlock, blockNumber, fileMetadata, isLast);
       pos = lengthOfFileInBlock;
+      LOG.info("BLock MetadaItr - next : {} , {}",this.pos, fileMetadata.getFileLength());
       return fileBlock;
     }
 

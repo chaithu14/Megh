@@ -160,6 +160,10 @@ public class FileSplitterInput extends AbstractFileSplitter implements InputOper
       }
     }
     process();
+    if(blockMetadataIterator != null) {
+      LOG.info("----EmitTuples: {}", blockMetadataIterator.toString());
+    }
+    LOG.info("----EmitTuples size: {}", getBlockSize());
   }
 
   @Override
